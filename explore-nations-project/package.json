@@ -1,0 +1,22 @@
+{
+  "name": "explore-nations-project",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npx parcel public/index.html",
+    "build": "npx parcel build public/index.html",
+    "dev": "parcel public/index.html --port 3000 --open"
+  },
+  "keywords": [],
+  "author": "Vijay Jadhav",
+  "license": "ISC",
+  "description": "A React app that displays countries information",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.25.1"
+  }
+}
