@@ -27,6 +27,7 @@ main {
 
 .expense-tracker {
   display: flex;
+  /* align-items: center; */
   gap: 32px;
 }
 
@@ -85,16 +86,23 @@ main {
 .input-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px;
+  max-width: 500px;
+  margin: 0.5rem auto;
+  box-shadow: 0 0 5px purple;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
 }
 
 .input-container label {
-  font-size: 14px;
+  /* font-size: 14px; */
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .input-container input {
   height: 28px;
   font-family: inherit;
+  background-color: rgba(213, 174, 248, 0.242);
 }
 
 .error {
@@ -103,12 +111,46 @@ main {
 }
 
 .add-btn {
-  width: 100%;
-  height: 32px;
-  font-size: 18px;
-  font-family: inherit;
+  width: 50%;
+  max-width: 500px;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: sans-serif;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
   margin-top: 8px;
+  background-color: transparent;
+  color: #f1f1f1;
+  /* box-shadow: 0 0 10px 5px #d10bd1, 0 0 25px 10px  #31cddb; */
+  position: relative;
+  backdrop-filter: blur(20px);
+  /* overflow: hidden; */
+  cursor: pointer;
 }
+
+.add-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border-radius: 5px;
+  background-image: linear-gradient(15deg, #31cddbbe, #d10bd1ab);
+  z-index: -1;
+  transition: right 0.2s ease-in-out, left 0.2s ease-in-out;
+}
+
+.add-btn:hover::after {
+  left: 50%;
+  right: 50%;
+}
+.add-btn:hover {
+  box-shadow: 0 0 10px #149a93;
+  color: #000000;
+}
+
+
 
 .context-menu {
   background-color: white;
