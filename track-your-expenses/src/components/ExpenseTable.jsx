@@ -1,71 +1,138 @@
 import { useState } from "react"
+import { useFilter } from "../hooks/useFilter"
+import { useExpenses } from "../hooks/useExpenses"
+import ContextMenu from "./ContextMenu"
 
-function ExpenseTable({expenses}) {
-  const[category, setCategory] = useState("")
+function ExpenseTable({formExpenseData}) {
+  const [ expenseData, setExpenseData] = formExpenseData
+  const [contextMenuStyle, setContextMenuStyle] = useState({display: 'none', left: 0, top:0})
+  const [expenseId, setExpenseId] = useState('')
+  const [expenses, setExpenses] = useExpenses()
+  const [filteredExpenses, setCategory] = useFilter(expenses, (data) => data?.category)
+  const [sortCallback, setSortCallback] = useState()
+
+
+ 
+  function handleContextMenu(e) {
+    setContextMenuStyle({display: 'block', left: e.clientX + 5, top: e.clientY + 5})
+  }
+
+  function sortExpenses(callback) {
+    setExpenses(sortedExpenses)
+  }
+  
   
   return (
-    <table className="expense-table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>
-            <select onChange={e => setCategory(e.target?.value)}>
-              <option value="">All</option>
-              <option value="grocery">Grocery</option>
-              <option value="clothes">Clothes</option>
-              <option value="bills">Bills</option>
-              <option value="education">Education</option>
-              <option value="medicine">Medicine</option>
-            </select>
-          </th>
-          <th className="amount-column">
-            <div>
-              <span>Amount</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="10"
-                viewBox="0 0 384 512"
-                className="arrow up-arrow"
-              >
-                <title>Ascending</title>
-                <path
-                  d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="10"
-                viewBox="0 0 384 512"
-                className="arrow down-arrow"
-              >
-                <title>Descending</title>
-                <path
-                  d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
-                />
-              </svg>
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          expenses?.filter(expense => expense.category?.toLowerCase().includes(category.toLowerCase()))
-          .map(expense => {
-            return (<tr key={expense?.id}>
-              <td>{expense.title}</td>
-              <td>{expense.category}</td>
-              <td>₹{expense.amount}</td>
-            </tr>)
-          })
+    <>
+      <ContextMenu setExpenseData={setExpenseData} expenseId={expenseId} menuStyle={[contextMenuStyle, setContextMenuStyle]} /> 
+      <table className="expense-table" 
+        onClick={() => {
+          if(contextMenuStyle.display === 'block') setContextMenuStyle({})}
         }
-        
-        <tr>
-          <th>Total</th>
-          <th></th>
-          <th>₹{expenses?.filter(expense => expense.category?.toLowerCase().includes(category.toLowerCase())).reduce((total, expense) => typeof(expense?.amount) !== "number" ? total : total += expense?.amount, 0)}</th>
-        </tr>
-      </tbody>
-    </table>
+      >
+        <thead>
+          <tr>
+            <th className="title-column">
+              <div>
+                <span>Title</span>
+                <span
+                  className="sort-title a-to-z"
+                  onClick={() => {
+                    setSortCallback(() => (a, b) => {
+                      const nameA = a.title.toUpperCase();
+                      const nameB = b.title.toUpperCase();
+                      if (nameA < nameB) return -1
+
+                      if (nameA > nameB) return 1
+
+                      return 0;
+                    })}
+                  }
+                  title="Alphabetical (A-Z)"
+                >
+                  A-Z
+                </span>
+                <span
+                  className="sort-title z-to-a"
+                  onClick={() => {
+                    setSortCallback(() => (a, b) => {
+                      const nameA = a.title.toUpperCase();
+                      const nameB = b.title.toUpperCase();
+                      if (nameA < nameB) return 1
+
+                      if (nameA > nameB) return -1
+
+                      return 0;
+                    })}
+                  }
+                  title="Reverse Alphabetical (Z-A)"
+                >
+                  Z-A
+                </span>
+              </div>
+            </th>
+            <th>
+              <select onChange={e => setCategory(e.target?.value)}>
+                <option value="">All</option>
+                <option value="grocery">Grocery</option>
+                <option value="clothes">Clothes</option>
+                <option value="bills">Bills</option>
+                <option value="education">Education</option>
+                <option value="medicine">Medicine</option>
+              </select>
+            </th>
+            <th className="amount-column">
+              <div>
+                <span>Amount</span>
+                <span
+                  className="arrow up-arrow"
+                  onClick={() => {
+                    setSortCallback(() => (a, b) => a.amount - b.amount)
+                  }}
+                  title="Ascending"
+                >
+                  &uarr;
+                </span>
+                <span
+                  className="arrow down-arrow"
+                  onClick={() => {
+                    setSortCallback(() => (a, b) => b.amount - a.amount)
+                    // setExpenses(sortedExpenses)
+                  }}
+                  title="Descending"
+                >
+                  &darr;
+                </span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            filteredExpenses.sort(sortCallback).map(expense => {
+              return (
+                <tr key={expense?.id}
+                  onContextMenu={ e => {
+                    e.preventDefault()
+                    setExpenseId(expense?.id)
+                    handleContextMenu(e)
+                  }}
+                >
+                  <td>{expense.title}</td>
+                  <td>{expense.category}</td>
+                  <td>₹{expense.amount}</td>
+              </tr>)
+            })
+          }
+          
+          <tr>
+            <th>Total</th>
+            <th style={{color: "gold", cursor: "pointer"}} onClick={() => setSortCallback()}>clear sort</th>
+            <th>₹{filteredExpenses.reduce((total, expense) => typeof(expense?.amount) !== "number" ? total : total += expense?.amount, 0)}</th>
+          </tr>
+        </tbody>
+      </table>
+    </>
   )
 }
 
