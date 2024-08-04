@@ -8,8 +8,6 @@ function ExpenseForm({formExpenseData}) {
   const [error, setError] = useState({title: '', category: '', amount: ''})
   const [expenseData, setExpenseData] = formExpenseData
 
-  // console.log(Object.values(error).some(err => err))
-  // console.log(Object.values(expenseData).every(data => data), Object.values(error).some(err => err))
 
   const formValidationRules = {
     title: [{required: "Please enter Title."}, {minlength: "Title must be at least 3 characters long."}, {maxlength: "Title can't exceed 50 characters."}],
@@ -71,7 +69,7 @@ function ExpenseForm({formExpenseData}) {
         return
       }
       uniqueId = crypto.randomUUID()
-      setExpenses([...expenses, {...expenseData, id: uniqueId, amount: parseInt(expenseData.amount)}])
+      setExpenses(prevState => [...prevState, {...expenseData, id: uniqueId, amount: parseInt(expenseData.amount)}])
     } 
     else {
       const updateExpenses = expenses.map(data => {
@@ -125,19 +123,20 @@ function ExpenseForm({formExpenseData}) {
   }
   
   return (
-    <form className="expenseData-form" onSubmit={handleFormSubmit}>
-      <InputField label={'Title'} id={'title'} handleChange={handleChange} value={expenseData.title} error={error?.title} type={'text'} />
+    <form className="expense-form" noValidate onSubmit={handleFormSubmit}>
+      <InputField label={'Title'} id={'title'} handleChange={handleChange} value={expenseData.title} error={error?.title} minlength={3} type={'text'} />
 
       <SelectInputField
         id={"category"}
         label={"Category"}
         value={expenseData?.category}
         handleChange={handleChange}
+        defaultValue=""
         options={["Grocery", "Clothes", "Bills", "Education", "Medicine"]}
         error={error?.category}
       />
       
-      <InputField label={'Amount'} id={'amount'} handleChange={handleChange} value={expenseData.amount} error={error?.amount} type={'number'} />
+      <InputField label={'Amount'} id={'amount'} handleChange={handleChange} value={expenseData.amount} error={error?.amount} min={1} type={'number'} />
       <button className={checkStatus() ? "add-btn disable" : "add-btn" }>{expenseData.id ? 'Save' : 'Add'}</button>
     </form>
   )

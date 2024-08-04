@@ -1,13 +1,13 @@
 
-function SelectInputField({label, id, value, handleChange, error, options}) {
+function SelectInputField({label, id, value, handleChange, error, options, defaultValue}) {
   return (
     <div className="input-container">
-      <label htmlFor={id}>{label}</label>
       <select id={id} name={id}
         value={value}
+        aria-required
         onChange={handleChange}
       >
-        <option hidden>Select {label}</option>
+        <option hidden>{defaultValue}</option>
         {
           options?.map(option => {
             return (
@@ -17,6 +17,7 @@ function SelectInputField({label, id, value, handleChange, error, options}) {
           })
         }
       </select>
+      <label htmlFor={id}>{label}</label>
       {error !== '' && <p className="error">{error}</p>}
     </div>
   )
