@@ -19,8 +19,8 @@ function App() {
           <ExpenseForm formExpenseData={[expenseData, setExpenseData]} />
           <ExpenseTable formExpenseData={[expenseData, setExpenseData]}/>
           <div className="context-menu">
-              <div>Edit</div>
-              <div>Delete</div>
+            <div>Edit</div>
+            <div>Delete</div>
           </div>
         </div>
       </main>

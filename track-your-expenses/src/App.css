@@ -1,6 +1,6 @@
 
 main {
-  max-width: 900px;
+  min-height: 100dvh;
   margin-inline: auto;
 }
 
@@ -18,25 +18,24 @@ main {
   font-size: 2rem;
   line-height: 2.1rem;
   margin:0 auto 1rem;
-  padding: 0 0.5rem;
+  /* padding: 0 0.5rem; */
   width: max-content;
 }
 .heading::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 0 0 0 100%;
   border-left: 1px solid;
   color: var(--text-clr);
   background-color: var(--bg-clr);
   z-index: 1;
-  animation: text-animation 4s steps(20) alternate forwards;
+  animation: text-animation 4s steps(20) alternate;
   animation-iteration-count: calc(20);
-  animation-play-state: running;
 }
 
 @keyframes text-animation {
   to{
-    inset: 0 0 0 105%;
+    inset: 0 0 0 -5%;
   }
 }
 
@@ -47,10 +46,7 @@ option {
 }
 
 
-/* :where(input[type="number"], input[type="text"]):not(:placeholder-shown) { */
-/* input[type="number"]:not(:placeholder-shown),  */
-input[type="number"]:valid, 
-input[type="text"]:valid {
+input:valid {
   outline: 2px solid #1ec00f;
   box-shadow: 0 0 10px 2px #1ec00f, inset -3px -5px 10px #1ec00f;
 }
@@ -60,9 +56,8 @@ input[type="number"]:out-of-range,
 input[type="text"]:invalid {
   outline: 2px solid #de1010;
   box-shadow: 0 0 10px 2px #de1010, inset -3px -5px 10px #de1010;
-  /* background-image: linear-gradient(to right bottom, #732f2f, #7e1111); */
-  /* background-color: #7e1111; */
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -82,7 +77,7 @@ input {
 
 .expense-tracker {
   display: flex;
-  /* align-items: center; */
+  align-items: center;
   gap: 32px;
 }
 
@@ -102,8 +97,7 @@ input {
 
 .expense-table tr th,
 .expense-table tr td {
-  padding-left: 1rem;
-  /* text-indent: 1rem; */
+  padding: 5px 5px 5px 16px ;
 }
 
 .title-column div,
@@ -111,6 +105,7 @@ input {
   display: flex;
   align-items: center;
 }
+
 
 .expense-table .title-column .sort-title {
   margin: 0 5px 0 ;
@@ -138,7 +133,6 @@ input {
 .amount-column div div.filter-amount {
   font-size: 12px;
   padding: 5px 8px;
-  /* border: 0.5px solid #a3a3a375; */
   background-color: var(--input-bg-clr);
   border-radius: 2px;
   margin: 0 15px 0 0;
@@ -147,27 +141,25 @@ input {
 }
 
 .amount-column div div.filter-amount:hover  {
-  background-color: #afdbaf29;
+  background-color: #44768bbf;
   backdrop-filter: blur(25px);
-  transform: scale(1.2);
 }
-.filter-amount:hover .filter-container {
+.amount-column div div.filter-amount:hover .filter-container {
   display: flex;
 }
 .filter-amount .filter-container {
   display: none;
-  /* cursor: default; */
   position: absolute;
-  inset: 100% -50% auto auto;
+  inset: 95% -40% auto auto;
   flex-direction: column;
-  /* height: 200px; */
   width: 150px;
-  padding: 1.5rem 5px;
-  background-color: #aec4ae50;
-  backdrop-filter: blur(25px);
+  padding: 1.5rem 5px 3.5rem;
+  background-color: #44768bbf;
+  backdrop-filter: blur(40px);
   border: 0.5px solid #a3a3a375;
   border-top: none;
   border-radius: 3px;
+  z-index: 5;
 }
 .filter-amount .filter-container .clear-filter-btn {
   position: absolute;
@@ -187,34 +179,32 @@ input {
 
 .filter-amount .filter-container .amount-input-wrapper {
   display: flex;
-  flex-direction: column;
   margin: 0.5rem 0;
+  background-color: #26cec0;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .amount-input-wrapper input {
-  width: 80%;
-  margin-bottom: 8px;
+  width: 100%;
   padding: 5px;
   text-align: center;
-  border-radius: 5px;
   background-color: var(--input-bg-clr);
   color: var(--text-clr);
   appearance: none;
 }
 .amount-input-wrapper input::placeholder {
-  color: var(--bg-clr);
+  font-size: 12px;
+  color: #c7c7c7;
 }
 
 
-.amount-input-wrapper input:valid,
-.amount-input-wrapper input:focus 
-{
+.amount-input-wrapper input:is(:valid, :focus ) {
   outline: 1px solid #2fcd0b;
-  box-shadow: 0 0 10px 1px #35c614;
+  box-shadow: inset 0 0 10px 1px #35c614;
 }
 .amount-input-wrapper input:invalid {
-  outline: 1px solid #d91212;
-  box-shadow: 0 0 15px 3px #d91212;
+  box-shadow: inset 6px 0 15px 3px #d91212;
 }
 .amount-input-wrapper input:placeholder-shown {
   outline: none;
@@ -227,15 +217,19 @@ input {
 
 .amount-input-wrapper .search-btn {
   display: inline-block;
-  padding: 3px 8px;
-  border: 1px solid;
-  background-color: transparent;
-  color: var(--text-clr);
+  padding: 5px 8px;
+  background-color: #d48815;
+  color: #ffffff;
   border-radius: 3px;
   cursor: pointer;
+  transition-property: color, background-color, box-shadow;
+  transition-duration: 0.3s;
+  transition-behavior: ease-in-out;
 }
 .amount-input-wrapper .search-btn:hover {
-  box-shadow: inset 0 0 10px 2px #c99fc9;
+  box-shadow: inset 0 0 10px 2px #f8d63f;
+  background-color: #fff;
+  color: #9f5600;
 }
   
   
@@ -247,7 +241,6 @@ input {
   border-radius: 3px;
   background-color: var(--input-bg-clr);
   color: var(--text-clr);
-  /* appearance: none; */
 }
 #select-amount option {
   background-color: #52528a;
@@ -315,9 +308,7 @@ input {
   height: 64px;
   max-width: 450px;
   margin: 0 auto;
-  /* box-shadow: 0 0 5px purple; */
   border-radius: 5px;
-  /* padding: 0.5rem 1rem; */
   background-color: var(--bg-clr);
   border: 2px solid var(--input-bg-clr);
   position: relative;
@@ -333,33 +324,31 @@ input {
   font-size: 1rem;
   border-radius: 5px;
   font-family: inherit;
-  /* background-color: var(--input-bg-clr); */
   background-color: var(--bg-clr);
-  /* background-color: pink; */
   color: var(--text-clr);
 }
 
-.input-container input:not(:focus) {
+.input-container input:placeholder-shown {
   outline: none;
   box-shadow: unset;
 }
 
 .input-container label {
   font-weight: 600;
-  font-size: 1rem;
-  line-height: 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
   position: absolute;
-  inset: 1rem auto auto 2rem;
+  inset: 1.25rem auto auto 2.5rem;
   padding: 0 0.5rem;
   background-color: inherit;
   transition: inset 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
-.input-container input[type="number"]:not(:placeholder-shown) ~ label,
-.input-container input[type="text"]:not(:placeholder-shown) ~ label,
+.input-container input:not(:placeholder-shown) ~ label,
 .input-container select:is(:focus, :valid) ~ label ,
 .input-container input:is(:focus, :valid) ~ label {
-  inset: -0.5rem auto auto 1rem;
+  inset: -12px auto auto 1rem;
+  font-size: 1rem;
 }
 
 
@@ -371,10 +360,8 @@ input {
   font-size: 1rem;
   border-radius: 5px;
   background-color: var(--bg-clr);
-  /* background-color: var(--input-bg-clr); */
   color: var(--text-clr);
   appearance: none;
-  /* background-color: pink; */
 }
 .input-container select option {
   background-color: var(--input-bg-clr);
@@ -384,8 +371,12 @@ input {
 
 
 .error {
-  color: red;
+  color: rgb(255, 56, 56);
   margin: auto;
+  position: absolute;
+  top: 102%;
+  text-shadow: -1px -1px 2px #f85d5d;
+  left: 5px;
 }
 
 .add-btn.disable {
@@ -404,10 +395,8 @@ input {
   opacity: 1;
   background-color: transparent;
   color: var(--text-clr);
-  /* box-shadow: 0 0 10px 5px #d10bd1, 0 0 25px 10px  #31cddb; */
   position: relative;
   backdrop-filter: blur(20px);
-  /* overflow: hidden; */
   cursor: pointer;
 }
 
@@ -421,13 +410,14 @@ input {
   transition: right 0.2s ease-in-out, left 0.2s ease-in-out;
 }
 
-.add-btn.add-btn.disable:hover::after {
+.add-btn.disable:hover::after {
   inset: 0;
 }
 .add-btn:hover::after {
   inset: 0 50%;
 }
-.add-btn.add-btn.disable:hover {
+.add-btn.disable:hover,
+.add-btn.disable:hover {
   outline: none;
 }
 .add-btn:hover {
@@ -445,7 +435,7 @@ input {
   color: #222;
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 12px #0000004d;
 }
 
 .context-menu div {
@@ -460,6 +450,6 @@ input {
 
 @media (max-width: 900px) {
   .expense-tracker {
-      flex-direction: column;
+    flex-direction: column;
   }
 }

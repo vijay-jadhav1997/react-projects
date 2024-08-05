@@ -118,6 +118,7 @@ function ExpenseForm({formExpenseData}) {
     return !(Object.entries(expenseData).every(([key, value]) => {
       if(key === 'id') return true
       if (key === 'title' & value.length < 3) return false
+      if (key === 'amount' & value < 1) return false
       return value !== ''
     }))
   }
@@ -132,7 +133,7 @@ function ExpenseForm({formExpenseData}) {
         value={expenseData?.category}
         handleChange={handleChange}
         defaultValue=""
-        options={["Grocery", "Clothes", "Bills", "Education", "Medicine"]}
+        options={["Grocery", "Clothes", "Bills", "Education", "Medicine", "Other"]}
         error={error?.category}
       />
       

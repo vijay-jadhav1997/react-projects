@@ -2,14 +2,17 @@ import { useState } from "react"
 import { useFilter } from "../hooks/useFilter"
 import { useExpenses } from "../hooks/useExpenses"
 import ContextMenu from "./ContextMenu"
+import { useLocalStorage } from "../hooks/useLocalStorage"
 
 function ExpenseTable({formExpenseData}) {
   const [ expenseData, setExpenseData] = formExpenseData
-  const [contextMenuStyle, setContextMenuStyle] = useState({display: 'none', left: 0, top:0})
+  const [contextMenuStyle, setContextMenuStyle] = useLocalStorage('contextMenuStyle', {display: 'none', left: 0, top:0})
   const [expenseId, setExpenseId] = useState('')
-  const [expenses, setExpenses] = useExpenses()
-  const [filteredExpenses, setCategory] = useFilter(expenses, (data) => data?.category)
+  const [expenses] = useExpenses()
+  const [filteredExpenses, setCategory, category] = useFilter( expenses, (data) => data?.category, 'category')
+  const [filteredByAmountExpense, setType, type] = useFilter( filteredExpenses, (data) => data?.amount, 'amount')
   const [sortCallback, setSortCallback] = useState()
+  const [filterObject, setFilterObject] = useState({select: '', amount: ''})
 
 
  
@@ -17,9 +20,6 @@ function ExpenseTable({formExpenseData}) {
     setContextMenuStyle({display: 'block', left: e.clientX + 5, top: e.clientY + 5})
   }
 
-  function sortExpenses(callback) {
-    setExpenses(sortedExpenses)
-  }
   
   
   return (
@@ -72,18 +72,62 @@ function ExpenseTable({formExpenseData}) {
               </div>
             </th>
             <th>
-              <select onChange={e => setCategory(e.target?.value)}>
+              <select value={category} onChange={e => setCategory(e.target?.value)}>
                 <option value="">All</option>
-                <option value="grocery">Grocery</option>
-                <option value="clothes">Clothes</option>
-                <option value="bills">Bills</option>
-                <option value="education">Education</option>
-                <option value="medicine">Medicine</option>
+                <option value="Grocery">Grocery</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Bills">Bills</option>
+                <option value="Education">Education</option>
+                <option value="Medicine">Medicine</option>
+                <option value="Other">Other</option>
               </select>
             </th>
             <th className="amount-column">
               <div>
                 <span>Amount</span>
+                <div className="filter-amount">
+                  filter 
+                  <div className="filter-container">
+                    {
+                      type !== '' && type[0] !== '' &&
+                      <button className="clear-filter-btn" type="reset" 
+                        onClick={()=> {
+                          setFilterObject({select: '', amount: ''})
+                          setType(['', 0])
+                        }} 
+                        title="clear the filter"
+                      >Clear filter</button>
+                    }
+                    {
+                      filterObject.select !== '' &&
+                      (<form noValidate className="amount-input-wrapper"
+                        onSubmit={(e) => {
+                          e.preventDefault()
+                          setType([filterObject.select, parseInt(filterObject.amount)])
+                          setFilterObject({select: '', amount: ''})
+                        }}
+                      >
+                        <input autoFocus value={filterObject.amount} min={1} type="number"
+                          placeholder="Enter amount..."
+                          onChange={(e) => setFilterObject(prevState => ({...prevState, amount: e.target.value}))}
+                        />
+                        {
+                          filterObject.amount !== '' &&
+                          <button type="submit" className="search-btn">search</button>
+                        }
+                      </form>)
+                    }
+                    <select value={filterObject.select} name="filter" id="select-amount"
+                      aria-required="true"
+                      onChange={(e) => setFilterObject(prevState => ({...prevState, select: e.target.value}))}
+                    >
+                      <option hidden>Select option</option>
+                      <option value="greater">Greater than</option>
+                      <option value="less">Less than</option>
+                      <option value="equal">Equal to</option>
+                    </select>
+                  </div>
+                </div>
                 <span
                   className="arrow up-arrow"
                   onClick={() => {
@@ -109,7 +153,7 @@ function ExpenseTable({formExpenseData}) {
         </thead>
         <tbody>
           {
-            filteredExpenses.sort(sortCallback).map(expense => {
+            filteredByAmountExpense.sort(sortCallback).map(expense => {
               return (
                 <tr key={expense?.id}
                   onContextMenu={ e => {
@@ -128,7 +172,7 @@ function ExpenseTable({formExpenseData}) {
           <tr>
             <th>Total</th>
             <th style={{color: "gold", cursor: "pointer"}} onClick={() => setSortCallback()}>clear sort</th>
-            <th>₹{filteredExpenses.reduce((total, expense) => typeof(expense?.amount) !== "number" ? total : total += expense?.amount, 0)}</th>
+            <th>₹{filteredByAmountExpense.reduce((total, expense) => typeof(expense?.amount) !== "number" ? total : total += expense?.amount, 0)}</th>
           </tr>
         </tbody>
       </table>
