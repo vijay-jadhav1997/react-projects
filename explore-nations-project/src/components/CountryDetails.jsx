@@ -11,6 +11,7 @@ export default function CountryDetails() {
   const[notFound, setNotFound] = useState(false)
   const[countryDetail, setCountryDetail] = useState(null)
 
+
   const [isDark] = useTheme()
   
   const {state} = useLocation()
@@ -25,7 +26,7 @@ export default function CountryDetails() {
       population: country.population.toLocaleString('en-IN'),
       region: country.region,
       topLevelDomain: country.tld,
-      capital: country?.capital[0],
+      capital: country?.capital?.[0] ,
       borders: country?.borders,
       currencies: country?.currencies,
       languages: country?.languages,
@@ -46,6 +47,7 @@ export default function CountryDetails() {
     })
   }
 
+
   useEffect(() => {
     if(!state) {
       fetch(`https://restcountries.com/v3.1/name/${country}?fullText=true`)
@@ -56,7 +58,6 @@ export default function CountryDetails() {
       })
       .catch(err => {
         setNotFound(true)
-        // setLoading(false)
       })
     }
     else {
@@ -66,7 +67,7 @@ export default function CountryDetails() {
         population: state?.population.toLocaleString('en-IN'),
         region: state?.region,
         topLevelDomain: state?.tld,
-        capital: state?.capital[0],
+        capital: state?.capital?.[0],
         borders: state?.borders,
         currencies: state?.currencies,
         languages: state?.languages,
@@ -83,22 +84,17 @@ export default function CountryDetails() {
   },[country])
   
 
-  // if(loading) {
-  //  return (
-  //     <div className="loading">
-  //       <h1> <span style={{color:"red"}}>Loading.....</span> </h1>
-  //     </div>
-  //   )
-  // }
 
-  // if (notFound) {
-  //   return (
-  //     <div className="not-found">
-  //       <h1 > No Data Found</h1>
-  //     </div>
-  //   )
-  // }
+  if (notFound) {
+    return (
+      <div className="not-found">
+        <h1 style={{padding:"1rem", margin:'2rem 1rem 0'}}> No Data Found....</h1>
+        <h2 style={{padding:"0 1rem", marginLeft:'1rem'}}> Please, Check your url, or network connection!</h2>
+      </div>
+    )
+  }
   
+
 
   return(
     <main className={isDark ? 'dark' : ''}>
@@ -117,16 +113,16 @@ export default function CountryDetails() {
             <div className="details-text-container">
               <h1>{countryDetail?.countryName}</h1>
               <div className="details-text">
-                <p><b>Native Name: </b><span className="native-name">{Object?.values(countryDetail?.nativeName)?.map((lang=> lang?.common)).join(', ')}.</span></p>
+                <p><b>Native Name: </b><span className="native-name">{countryDetail?.nativeName && Object?.values(countryDetail?.nativeName)?.map((lang=> lang?.common)).join(', ')}.</span></p>
                 <p><b>Population: </b><span className="population">{countryDetail?.population}</span></p>
                 <p><b>Region: </b><span className="region">{countryDetail?.region}</span></p>
                 <p><b>Sub Region: </b><span className="sub-region">{countryDetail?.subregion}</span></p>
                 <p><b>Capital: </b><span className="capital">{countryDetail?.capital}</span></p>
                 <p>
-                  <b>Top Level Domain: </b><span className="top-level-domain">{countryDetail?.topLevelDomain?.tld?.join(', ')}</span>
+                  <b>Top Level Domain: </b><span className="top-level-domain">{countryDetail?.topLevelDomain?.join(', ')}</span>
                 </p>
-                <p><b>Currencies: </b><span className="currencies">{Object?.values(countryDetail?.currencies)[0]?.name} {`(${Object?.values(countryDetail?.currencies)[0]?.symbol})`}</span></p>
-                <p><b>Languages: </b><span className="languages">{Object.values(countryDetail?.languages)?.join(', ')}</span></p>
+                <p><b>Currencies: </b><span className="currencies">{countryDetail?.currencies && Object?.values(countryDetail?.currencies)[0]?.name} {`(${countryDetail?.currencies !== undefined ? Object?.values(countryDetail?.currencies)[0]?.symbol : ''})`}</span></p>
+                <p><b>Languages: </b><span className="languages">{countryDetail?.languages && Object.values(countryDetail?.languages)?.join(', ')}</span></p>
               </div>
               
               {

@@ -7,7 +7,7 @@ import './styles/Style.css'
 
 
 const App = () => {
-  const[isDark, setIsDark] = useState(JSON.parse(localStorage.getItem('theme'))|| true)
+  const[isDark, setIsDark] = useState(localStorage.getItem('theme') ? JSON.parse(localStorage.getItem('theme')) : true)
 
   
   return (

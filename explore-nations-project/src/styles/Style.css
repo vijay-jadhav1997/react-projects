@@ -7,7 +7,7 @@
 }
 
 body {
-    --background-color: #f1eaf1;
+    --background-color: #ced9df;
     --text-color: black;
     --elements-color: #ebeff3;
     margin: 0;
@@ -29,6 +29,7 @@ main {
     padding: 24px;
     min-height: calc(100vh - 73px);
     background-color: var(--background-color);
+    position: relative;
 }
 
 a {
@@ -61,22 +62,41 @@ a {
 
 .theme-changer {
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .theme-changer .theme-icon-slider {
     display: inline-block;
-    width: 55px;
+    width: 70px;
+    height: 30px;
     border-radius: 20px;
-    background-color: rgb(189, 217, 232);
-    padding: 2px 8px;
+    overflow: hidden;
+    /* background-color: rgb(189, 217, 232); */
+    /* padding: 2px 8px; */
+    object-fit: cover;
+    position: relative;
+}
+.theme-changer .theme-icon-slider img{
+    width: 100%;
+    height: 100%;
 }
 
 .theme-changer .theme-icon-slider i{
-    transition: transform 0.3s ease-in-out;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(165%, -50%);
+    width: 25px;
+    height: 25px;
+    background-color: #d0d0e0eb;
+    border-radius: 15px;
+    z-index: 5;
+    transition: transform 0.4s ease-in-out;
 }
 .header-container.dark .theme-changer .theme-icon-slider i{
-    transform: translateX(24px);
-    color: rgb(92, 166, 92);
+    transform: translate(20%, -50%);
+    background-color: #111f46;
 }
 
 
@@ -94,53 +114,20 @@ a {
 }
 
 .country-card {
-    position: relative;
     display: inline-block;
     width: 250px;
     border-radius: 8px;
-    /* overflow: hidden; */
+    overflow: hidden;
     padding-bottom: 24px;
-    box-shadow: 20px 20px 22px rgba(0, 0, 0, 0.02);
-    transition: transform 0.2s ease-in-out;
-    /* background-color: var(--elements-color); */
-    background-color: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(40px);
+    box-shadow: 5px 5px 20px #00000046;
+    box-shadow: 5px 5px 20px #00000046, 0 0 10px #b4cbd583;
+    transition: transform 0.3s ease-in-out;
+    background-image: var(--elements-color);
 }
-
-
-
-@property --angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
-}
-.country-card::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-sizing: content-box;
-    padding: 5px;
-    border-radius: 8px;
-    /* background-image: conic-gradient( from var(--angle), transparent 10%, blue, green, tomato, goldenrod); */
-    z-index: -1;
-    /* animation: circular-effect 2s linear infinite; */
-}
-
-@keyframes circular-effect {
-    to{
-        --angle: 360deg;
-    }
-}
-
-
 
 .country-card:hover {
-    transform: scale(1.03);
-    /* box-shadow: 0 0 16px 0px #00000033; */
+    transform: scale(1.05);
+    /* box-shadow: 0 0 16px 0px #7c7c7c33; */
 }
 
 .card-title {
@@ -171,35 +158,54 @@ a {
 
 /* ? styling Shimmer cards */
 
-/* .shimmer-card::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    inset: 0;
-    background-image: linear-gradient(50deg, blue, tomato);
-    z-index: 1;
-} */
+main.dark .shimmer-card {
+    background-color: inherit;
+}
+.shimmer-card {
+    width: 250px;
+    box-shadow: 5px 5px 20px #00000046, 0 0 10px #b4cbd5cc;
+    height: 330px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color:#ced9df;
+    opacity: 1;
+    animation: shimmer-effects 1s infinite linear alternate;
+}
+
+@keyframes shimmer-effects {
+    to {
+        opacity: 0.3;
+    }
+}
+
 .shimmer-card .img {
     width: 100%;
     height: 50%;
     object-fit: cover;
-    box-shadow: 0 0 5px #b4cbd5cc;
+    box-shadow: 0 0 5px #b4cbd5cc, 0 0 3px #00000046;
 }
 .shimmer-card h3 {
-    width: 70%;
-    padding: 10px;
-    box-shadow: 0 0 5px #b4cbd5cc;
+    width: 75%;
+    padding: 1rem;
+    box-shadow: 0 0 5px #b4cbd5cc, 0 0 3px #00000046;
+    margin: 1.5rem 0.5rem 1rem;
 }
-.shimmer-card p:last-child {
-    width: 45%;
-}
+
 .shimmer-card p {
-    width: 65%;
-    padding: 7px;
+    width: 70%;
+    padding: 0.6rem;
+    margin: 0.5rem;
     border-radius: 5px;
-    box-shadow: 0 0 5px #b4cbd5cc;
+    box-shadow: 0 0 5px #b4cbd5cc, 0 0 3px #00000046;
 }
+
+.shimmer-card p:last-child {
+    width: 60%;
+}
+.shimmer-card p:nth-child(2n) {
+    width: 50%;
+}
+
 
 @keyframes shimmer-effect {
     to {
@@ -231,6 +237,7 @@ a {
     color: var(--text-color);
 }
 
+
 .search-container input {
     border: none;
     outline: none;
@@ -253,6 +260,23 @@ a {
     color: var(--text-color);
     cursor: pointer;
 }
+
+
+.error-page {
+    display: grid;
+    place-content: center;
+    min-height: 50dvh;
+    width: 100%;
+    padding: 1rem;
+}
+.error-page h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.error-page h2.not-found {
+    color: #d70d0d;
+}
+
 
 @media(max-width: 768px) {
     .title {

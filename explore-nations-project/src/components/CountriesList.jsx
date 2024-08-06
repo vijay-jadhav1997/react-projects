@@ -35,7 +35,7 @@ const CountriesList = ({filteringCountry}) => {
       {
         allCountriesData.length === 0
         ?
-          (Array.from({length : 10})).map((card, i) => <ShimmerCountryCard key={i}/>)
+          (Array.from({length : 12})).map((card, i) => <ShimmerCountryCard key={i}/>)
           
         :
           allCountriesData.filter(country => country?.region.toLowerCase().includes(region.toLowerCase()))

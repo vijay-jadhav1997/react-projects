@@ -11,14 +11,17 @@ export default function Home ()  {
   
   const [isDark] = useTheme()
 
+  
+
   return (
     <main className={isDark ? 'dark' : ''}>
-    <div className="search-filter-container">
-      <SearchBar filteringCountry={[filterText, setFilterText]} />
-      <FilterByRegion setRegion={setRegion} />
-    </div>
+      <div className="scroll-watcher"></div>
+      <div className="search-filter-container">
+        <SearchBar filteringCountry={[filterText, setFilterText]} />
+        <FilterByRegion setRegion={setRegion} />
+      </div>
 
-    <CountriesList filteringCountry = {[filterText, region]} />
-  </main>
+      <CountriesList filteringCountry = {[filterText, region]} />
+    </main>
   )
 }

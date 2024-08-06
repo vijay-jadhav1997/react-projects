@@ -2,9 +2,9 @@
   "name": "explore-nations-project",
   "version": "1.0.0",
   "scripts": {
-    "start": "npx parcel public/index.html",
+    "start": "npx parcel public/index.html --port 1997 --open",
     "build": "npx parcel build public/index.html",
-    "dev": "parcel public/index.html --port 3000 --open"
+    "dev": "parcel public/index.html --port 1947 --open"
   },
   "keywords": [],
   "author": "Vijay Jadhav",
