@@ -1,7 +1,9 @@
-
 main {
   min-height: 100dvh;
   margin-inline: auto;
+  max-width: 1280px;
+  width: 100%;
+  padding: 2rem 0;
 }
 
 * {
@@ -18,9 +20,9 @@ main {
   font-size: 2rem;
   line-height: 2.1rem;
   margin:0 auto 1rem;
-  /* padding: 0 0.5rem; */
   width: max-content;
 }
+
 .heading::after {
   content: "";
   position: absolute;
@@ -29,12 +31,12 @@ main {
   color: var(--text-clr);
   background-color: var(--bg-clr);
   z-index: 1;
-  animation: text-animation 4s steps(20) alternate;
+  animation: text-animation 5s steps(20) alternate;
   animation-iteration-count: calc(20);
 }
 
 @keyframes text-animation {
-  to{
+  to {
     inset: 0 0 0 -5%;
   }
 }
@@ -79,12 +81,25 @@ input {
   display: flex;
   align-items: center;
   gap: 32px;
+  width: 100%;
+  padding: 1rem;
 }
 
+.table-container {
+  width: 100%;
+  max-width: 640px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+.table-container p {
+  margin-bottom: 0.5rem;
+  color: #9ec194;
+}
 
 .expense-table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 540px;
 }
 
 .expense-table select {
@@ -260,6 +275,7 @@ input {
   font-size: 1.25rem;
   font-weight: 700;
   color: gold;
+  border-radius: 1rem;
 }
 
 .up-arrow {
@@ -448,8 +464,25 @@ input {
   background-color: #ddd;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .expense-tracker {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 1224px) {
+  .expense-tracker {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .expense-tracker {
+    padding: 0;
+  }
+
+  .table-container {
+    /* overflow: auto; */
+    color: inherit;
   }
 }
