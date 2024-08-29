@@ -275,6 +275,7 @@ input {
   font-size: 1.25rem;
   font-weight: 700;
   color: gold;
+  border-radius: 1rem;
 }
 
 .up-arrow {
