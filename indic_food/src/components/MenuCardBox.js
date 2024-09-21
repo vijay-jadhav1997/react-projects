@@ -62,7 +62,7 @@ const MenuCardBox = ({ menuData }) => {
           alt={name.substring(0, 10) + "... pic"}
         />
         <button
-          className="py-1 px-2 w-max rounded-md absolute text-white bg-black top-1 left-1/2 -translate-x-1/2"
+          className="py-1 px-2 w-max rounded-md absolute text-white bg-black cursor-pointer hover:bg-slate-300 hover:text-blue-950 active:scale-110 top-1 left-1/2 -translate-x-1/2"
           onClick={() => handleAddMenu(menuData)}
         >
           Add +

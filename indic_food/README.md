@@ -1,10 +1,18 @@
-# Foodie App
+# 🥧☕ Indic Food App 🛒🥘🥣
 
-# 🧾Track Your Expenses 💰💸
+**The application is currently under active development. We are continuously working on adding new features, improvements and building a robust backend to support the full functionality of the app, and appreciate your understanding as we refine the user experience.**
 
 ## Overview 💡:
-Track Your Expenses is a modern React application designed to help users manage their expenses efficiently. The application supports adding, deleting, updating, and clearing expenses, as well as filtering and sorting by various criteria.
+The Indic Food App is designed to bring the rich diversity of Indian cuisine to your fingertips. Whether you're craving street food from Delhi, biryani from Hyderabad, or a special regional dish, our app provides access to a wide variety of food options from restaurants and hotels across India.
 
+### Key Features:
+- **Browse Menus:** Explore dishes available at restaurants and hotels in cities across India, with detailed descriptions and images to guide your selection.
+- **Order Food:** Conveniently order your favorite dishes from your chosen restaurant and get them delivered right to your doorstep.
+- **Wishlist:** Save your favorite dishes for easy access later by adding them to your personalized wishlist.
+- **Easy Search & Filters:** Quickly search for dishes, restaurants, or cuisines by location, price range, or rating.
+- **Real-time Tracking:** Track your order from the kitchen to your doorstep.
+
+Designed for food enthusiasts who want to experience the incredible variety of Indian cuisine, the app aims to provide a seamless and delightful food ordering experience across the country.
 
 ## Technologies Used 💻:
 -  **HTML**: For the basic structure of the web pages.
@@ -13,6 +21,7 @@ Track Your Expenses is a modern React application designed to help users manage 
 -  **React**: A JavaScript library for building user interfaces.
 -  **React-DOM**: Provides DOM-specific methods for React.
 -  **React Router**: Implemented for handling navigation and routing within the application, allowing seamless transitions between different pages and enhancing the overall user experience.
+-  **Redux**: As the state management tool.
 -  **Parcel**: As the bundler for packaging the application.
 
 

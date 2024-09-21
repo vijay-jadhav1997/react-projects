@@ -10,12 +10,10 @@ import ContactUs from "./components/ContactUs";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import UserContext from "./utils/UserContext";
-// import Grocery from "./components/Grocery";
 import { Provider } from "react-redux";
 import appStore from "./appStore/appStore";
 import Cart from "./components/Cart";
 
-const Grocery = lazy(() => import("./components/Grocery"));
 
 const AboutUs = lazy(() => import("./components/AboutUs"));
 
@@ -69,15 +67,6 @@ const routee = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
-      },
-      {
-        path: "/grocery",
-        element: (
-          <Suspense fallback={<h1>Loading.....!!</h1>}>
-            {" "}
-            <Grocery />
-          </Suspense>
-        ),
       },
       {
         path: "/restaurants/:resId",
