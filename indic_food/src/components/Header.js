@@ -14,10 +14,10 @@ const Header = () => {
   // console.log(cartItems);
 
   return (
-    <div className="bg-pink-400 z-50 fixed top-3 rounded left-[5%] right-[5%] lg:left-[10%] lg:right-[10%]">
-      <div className="flex justify-between h-24 items-center">
+    <header className="bg-pink-600 shadow-sm py-2 px-4 z-50 fixed top-3 rounded left-[5%] right-[5%] lg:left-[10%] lg:right-[10%]">
+      <div className="flex justify-between items-center">
         <div className="">
-          <img className="w-24 h-20 mx-2 rounded-md " src={LOGO_URL} />
+          <img className="w-12 h-12 mx-2 object-cover rounded-full " src={LOGO_URL} />
         </div>
         <div className="">
           <ul className="flex justify-between text-white font-medium">
@@ -37,20 +37,22 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link className="px-2 py-1 hover:border rounded-md" to="/cart">
-                Cart- ({cartItems.length})
-              </Link>
-            </li>
-            <li>
-              <Link className="px-2 py-1 hover:border rounded-md" to="/grocery">
-                Grocery Store
+              <Link className="px-2 py-1 relative hover:scale-90" to="/cart">
+                🛒
+                {
+                  cartItems.length > 0 
+                  ? 
+                  <span className="absolute -top-2 -right-2 text-center text-black bg-slate-200 rounded-full h-6 w-6">{cartItems.length}</span>
+                  :
+                  ''
+                }
               </Link>
             </li>
           </ul>
         </div>
         <div>
           <button
-            className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:border"
+            className="px-2 py-1 bg-indigo-500 text-white rounded-md hover:bg-slate-300 hover:text-indigo-700"
             onClick={(event) => {
               btnName === "Login" ? setBtnName("Log out") : setBtnName("Login");
             }}
@@ -58,18 +60,9 @@ const Header = () => {
             {btnName}
           </button>
         </div>
-        <div className="relative mx-1">
-          <img
-            className="w-16 h-16 rounded-[50%]"
-            src="https://cdn.shopclues.com/images1/detailed/91725/140527619-91725149-1535802376.jpg"
-          />
-          {/* <span className="absolute">Radhe Shyam</span> */}
-        </div>
       </div>
-      <div className="absolute text-white font-medium bottom-1 left-40">
-        Online status: {isOnline ? `✅` : "🔴"}
-      </div>
-    </div>
+      
+    </header>
   );
 };
 
