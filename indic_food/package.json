@@ -2,15 +2,14 @@
   "name": "indic_food",
   "version": "1.0.0",
   "description": "React project",
-  "main": "index.js",
   "scripts": {
     "start": "parcel index.html --open",
     "build": "parcel build index.html",
     "test": "jest"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vijay-jadhav1997/learn_react.git"
+    "type": "git", 
+    "url": "git+https://github.com/vijay-jadhav1997/react-projects.git"
   },
   "keywords": [
     "react"
@@ -18,9 +17,9 @@
   "author": "vijay jadhav",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vijay-jadhav1997/learn_react/issues"
+    "url": "https://github.com/vijay-jadhav1997/react-projects.git/issues"
   },
-  "homepage": "https://github.com/vijay-jadhav1997/learn_react#readme",
+  "homepage": "https://github.com/vijay-jadhav1997/react-projects.git#readme",
   "devDependencies": {
     "parcel": "^2.10.0",
     "postcss": "^8.4.31",
