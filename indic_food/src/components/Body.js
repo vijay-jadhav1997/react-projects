@@ -4,16 +4,13 @@ import Shimmer from "./Shimmer";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useRestaurantList } from "../utils/customHooks";
-import UserContext from "../utils/UserContext";
 
 const Body = () => {
   //* useState declare/create Local State Variable- Super Powerful variable:
   const [resList, setResList] = useState(null);
   const [filteredList, setFilteredList] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [userName1, setUserName1] = useState("");
 
-  const { loggedInUser, userName, setUserName } = useContext(UserContext);
 
   const fetchResList = async () => {
     try {
@@ -43,6 +40,26 @@ const Body = () => {
     fetchResList();
   }, []);
 
+  useEffect(() => {
+    if(resList !== null){
+
+      let searchList = [];
+  
+      if (searchText.length !== 0) {
+        searchList = resList.filter((restaurant) => {
+          // console.log((((restaurant.info?.name).toUpperCase()).includes((event.target.value).toUpperCase())))
+          return (restaurant.info?.name)
+            .toUpperCase()
+            .includes(searchText.toUpperCase());
+        });
+      } else {
+        searchList = [...resList];
+      }
+  
+      setFilteredList(searchList);
+    }
+  }, [searchText])
+
   const RestaurantCardPromoted = withVegLabel(RestaurantCard);
   // console.log(resList);
 
@@ -50,22 +67,9 @@ const Body = () => {
   return resList === null ? (
     <Shimmer />
   ) : (
-    <div className="mt-36 text-white">
-      <div className="w-max mx-auto my-2 px-5 py-2 bg-pink-400 rounded-md text-lg font-semibold">
-        <input
-          type="text"
-          className="my-2 py-1 px-3 indent-2 rounded-md outline-none text-blue-900"
-          value={userName1}
-          onChange={(e) => setUserName1(e.target.value)}
-          placeholder="Enter your name here..."
-        />
-        <button
-          className="border border-white py-1 px-3 mx-2 rounded-lg hover:text-pink-400 hover:bg-white active:shadow-lg active:shadow-rose-600"
-          onClick={() => setUserName(userName1)}
-        >
-          add name
-        </button>
-        <p> {loggedInUser}</p>
+    <div className="mt-16 p-4 text-white">
+      <div className="h-10 hover:h-auto w-[85%] max-w-[968px] overflow-y-hidden mx-auto my-8 transition-all px-5 py-2 bg-lime-600 rounded-md text-lg font-semibold">
+        <p>The application is currently under active development. We are continuously working on adding new features, improvements and building a robust backend to support the full functionality of the app, and appreciate your understanding as we refine the user experience.</p>
       </div>
       <div className="bg-slate-400 py-1 mx-auto rounded-md w-max">
         <input
@@ -78,24 +82,24 @@ const Body = () => {
           }}
         />
         <button
-          className="mx-2 bg-gray-200 px-4 py-2 text-gray-800 rounded-md hover:text-gray-100 hover:bg-transparent hover:border active:opacity-60 font-medium"
-          onClick={() => {
-            // console.log(searchText);
-            let searchList;
+          className="mx-2 bg-gray-200 px-4 py-2 text-gray-800 rounded-md hover:text-gray-100 hover:bg-transparent hover:outline hover:outline-slate-900 active:shadow-md active:shadow-teal-300 font-medium"
+          // onClick={() => {
+          //   // console.log(searchText);
+          //   let searchList;
 
-            if (searchText.length !== 0) {
-              searchList = resList.filter((restaurant) => {
-                // console.log((((restaurant.info?.name).toUpperCase()).includes((event.target.value).toUpperCase())))
-                return (restaurant.info?.name)
-                  .toUpperCase()
-                  .includes(searchText.toUpperCase());
-              });
-            } else {
-              searchList = [...resList];
-            }
+          //   if (searchText.length !== 0) {
+          //     searchList = resList.filter((restaurant) => {
+          //       // console.log((((restaurant.info?.name).toUpperCase()).includes((event.target.value).toUpperCase())))
+          //       return (restaurant.info?.name)
+          //         .toUpperCase()
+          //         .includes(searchText.toUpperCase());
+          //     });
+          //   } else {
+          //     searchList = [...resList];
+          //   }
 
-            setFilteredList(searchList);
-          }}
+          //   setFilteredList(searchList);
+          // }}
         >
           Search
         </button>

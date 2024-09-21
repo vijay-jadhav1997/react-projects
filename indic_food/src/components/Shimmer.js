@@ -3,7 +3,7 @@ const ShimmerCard = () => {
     <div className="shimmerCardBox">
           
       <div className="ShimmerBannerBox">
-        <img src="" />
+        <div className="img"></div>
         <span></span>
       </div>
 
@@ -23,7 +23,7 @@ const ShimmerCard = () => {
 
 const Shimmer = () => {
   return (
-    <div className="shimmerCardsContainer">
+    <div className="shimmerCardsContainer ">
       <ShimmerCard />
       <ShimmerCard />
       <ShimmerCard />
