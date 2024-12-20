@@ -15,7 +15,8 @@ const Body = () => {
   const fetchResList = async () => {
     try {
       const resListData = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+        // "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+        "https://quiz-rest-api.vercel.app/res_api/res_list/"
       );
       const resListDataJson = await resListData.json();
       // console.log(resListDataJson?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
