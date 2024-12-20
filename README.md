@@ -1,6 +1,7 @@
 # 👩🏻‍💻 React, React-router-dom, and Redux based Projects 🌍
 
 ### 1. **explore-nations-project**
+### 2. **indic_food**
 ### 2. **track-your-expenses**
 
 ---
