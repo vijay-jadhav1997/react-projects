@@ -10,7 +10,7 @@ const CountriesList = ({filteringCountry}) => {
 
   async function getCountriesData() {
     try {
-      const response = await fetch('https://restcountries.com/v3.1/all')
+      const response = await fetch('https://www.restcountries.com/v3.1/all?fields=name')
       const data = await response.json()
       setAllCountriesData(data)
       setFilteredCountriesData(data)
