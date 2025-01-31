@@ -2,6 +2,10 @@
 
 **The application is currently under active development. We are continuously working on adding new features, improvements and building a robust backend to support the full functionality of the app, and appreciate your understanding as we refine the user experience.**
 
+---
+💻 Go live 👉🏻 [Indic_Food_app](https://indicfood.vercel.app/)
+---
+
 ## Overview 💡:
 The Indic Food App is designed to bring the rich diversity of Indian cuisine to your fingertips. Whether you're craving street food from Delhi, biryani from Hyderabad, or a special regional dish, our app provides access to a wide variety of food options from restaurants and hotels across India.
 
